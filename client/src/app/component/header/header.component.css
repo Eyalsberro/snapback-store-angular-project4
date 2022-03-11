@@ -1,0 +1,14 @@
+.mat-toolbar-row{
+    justify-content: space-between;
+    background-color: black;
+    align-content: center;
+}
+
+.home{
+    background-color: transparent;
+    
+}
+
+.btn{
+    color: white;
+}

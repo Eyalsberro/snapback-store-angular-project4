@@ -1,0 +1,11 @@
+.container{
+   margin-top: 20px;
+}
+
+.form{
+   text-align: center;
+}
+
+.err{
+    color: red;
+}

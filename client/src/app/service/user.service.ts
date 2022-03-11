@@ -1,0 +1,97 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+
+  constructor(public router:Router) { }
+  err: string = "";
+  localstorage = "";
+  userAddress= []
+
+  async login(body: { form }) {
+    const res = await fetch('http://localhost:1000/users/login', {
+      method: "post",
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+      credentials: "include"
+    })
+    const data = await res.json()
+
+    if (data.err) {
+      this.err = data.err
+    } else {
+      this.err = ""
+      localStorage['email'] = data.user[0].email
+      localStorage['userID'] = data.user[0].userID
+      localStorage['role'] = data.user[0].role
+      this.localstorage = localStorage.getItem('email') || '{}'
+    }
+  }
+
+
+  async logout(){
+    const res = await fetch('http://localhost:1000/users/logout',{
+      method:'DELETE',
+      credentials:"include"
+    })
+    const data = await res.json()
+    console.log(data)
+    this.router.navigate(['/login']);
+    localStorage.removeItem('email')
+    localStorage.removeItem('userID')
+    localStorage.removeItem('role')
+    this.localstorage= ""
+    
+    
+  }
+
+  async register(body:{form}){
+    const res = await fetch('http://localhost:1000/register',{
+      method:'POST',
+      headers: { 'content-type':'application/json' },
+      body: JSON.stringify(body)
+    })
+    const data = await res.json()
+    if(res.status == 400){
+      this.err = data.err
+    }else{
+      this.err=""
+      this.router.navigate(['/login']);
+      console.log(data)
+    }
+  }
+
+  async getUserAddress(id:number){
+    const res = await fetch(`http://localhost:1000/users/address/${id}`,{
+      credentials:"include"
+    })
+    const data = await res.json()
+    console.log(data)
+    this.userAddress= data;
+    
+  }
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
