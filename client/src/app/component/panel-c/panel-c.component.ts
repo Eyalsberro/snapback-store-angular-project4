@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from 'src/app/service/order.service';
 import { ProductsService } from 'src/app/service/products.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-panel-c',
@@ -9,11 +11,17 @@ import { ProductsService } from 'src/app/service/products.service';
 export class PanelCComponent implements OnInit {
 
     
-    constructor(public _products:ProductsService) { }
+    constructor(public _products:ProductsService , public _order:OrderService, public _user:UserService) { }
 
+    localstorge = localStorage['userID']
   ngOnInit(): void {
 
     this._products.countAllProducts()
+    this._order.countAllOrders()
+    this._products.getCartDate(localStorage['userID'])
+    this._order.getLastOrder(localStorage['userID'])
+    this._user.getUserData(localStorage['userID'])
+    
   }
 
 }

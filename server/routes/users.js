@@ -1,5 +1,6 @@
 const { SQL } = require('../dbconfig')
 const router = require('express').Router()
+const { loggedUser } = require('../helper/loggedUser')
 
 
 //LOGIN CUSTOMER/ADMIN
@@ -22,7 +23,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).send({ err: "**Wrong email or/and password" })
 
         }
-        res.send({ msg: "Succefull login ", user })
+        res.send({ msg: "Succefull login " ,user })
 
         req.session.email = email
         req.session.userID = user[0].userID
@@ -49,19 +50,19 @@ router.post('/register', async (req, res) => {
             return res.status(400).send({ err: "**Missing Password, all filed are required" })
         }
         if (!city) {
-            return res.status(400).send({ err: "**Missing city, all filed are required" })
+            return res.status(400).send({ err: "**Missing City, all filed are required" })
         }
         if (!street) {
-            return res.status(400).send({ err: "**Missing street, all filed are required" })
+            return res.status(400).send({ err: "**Missing Street, all filed are required" })
         }
         if (!email) {
-            return res.status(400).send({ err: "**Missing email, all filed are required" })
+            return res.status(400).send({ err: "**Missing Email, all filed are required" })
         }
         if (!firstName) {
-            return res.status(400).send({ err: "**Missing firstName, all filed are required" })
+            return res.status(400).send({ err: "**Missing First Name, all filed are required" })
         }
         if (!lastName) {
-            return res.status(400).send({ err: "**Missing lastName, all filed are required" })
+            return res.status(400).send({ err: "**Missing Last Name, all filed are required" })
         }
 
 
@@ -103,14 +104,26 @@ router.delete('/logout', (req, res) => {
 
 })
 
+// GET USERS INFO
+router.get('/userallinfo',async (req,res)=>{
+    try {
+        const kaka = await SQL(`SELECT * 
+        FROM storeproject.users`)
+        res.send(kaka)
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(500)
+    }
+})
 
-// GET ADDRESS OF USER (for order inputs)
-router.get('/address/:user_id',loggedUser, async (req, res) => {
+
+// GET INFO OF USER (for order inputs)
+router.get('/:user_id', async (req, res) => {
 
     try {
-        const useraddress = await SQL(`SELECT city, street 
+        const useraddress = await SQL(`SELECT * 
         FROM storeproject.users
-        WHERE userID = ${req.params.user_id}`)
+        WHERE userID= ${req.params.user_id}`)
 
         res.send(useraddress)
 
@@ -120,6 +133,8 @@ router.get('/address/:user_id',loggedUser, async (req, res) => {
     }
 
 });
+
+
 
 
 module.exports = router

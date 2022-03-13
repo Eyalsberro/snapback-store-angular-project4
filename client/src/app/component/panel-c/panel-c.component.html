@@ -1,5 +1,30 @@
-<p>panel-c works!</p>
+<h1>Some Data About Our Store</h1>
 <div *ngFor="let count of _products.countProduct">
-    <p>Avaliable Products In Store: {{count.Count}}</p>
-    <p>Number of order submitted: {{count.Count}}</p>
+    <p><b>Avaliable Products In Store:</b> {{count.Count}}</p>
+</div>
+<div *ngFor="let count of _order.countAllOrder">
+    <p><b>Number Of Order Submitted:</b> {{count.Count}}</p>
+</div>
+
+
+
+
+<div *ngIf="!_user.isLogged">
+    <h3 *ngFor="let last of _products.CartLastDate">
+        <span>
+            <b>You Have An Open Cart From: </b>{{last.cartDate | date}}
+        </span>
+    </h3>
+
+    <h3 *ngFor="let lastorder of _order.lastOrderOfUser">
+        <span>
+            <b>Your last order was: </b>{{lastorder.orderDate | date}}
+        </span>
+    </h3>
+
+    <h3 *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0">
+        <span *ngFor="let user of _user.userinfo">
+            <b> Welcome: </b> {{user.firstName}}
+        </span>
+    </h3>
 </div>

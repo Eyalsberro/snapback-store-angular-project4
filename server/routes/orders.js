@@ -5,7 +5,7 @@ const router = require('express').Router()
 
 
 // GET LAST ORDER DATE (for the login process)
-router.get('/last/:user_id',loggedUser, async (req, res) => {
+router.get('/last/:user_id', async (req, res) => {
 
     try {
         const lastOrderDate = await SQL(`SELECT orderDate FROM orders
@@ -25,7 +25,7 @@ router.get('/last/:user_id',loggedUser, async (req, res) => {
 // GET COUNT ALL ORDERS
 router.get('/count', async (req, res) => {
     try {
-        const countOrders = await SQL(`SELECT COUNT(orderID)
+        const countOrders = await SQL(`SELECT COUNT(orderID) as Count
         FROM orders;`)
         res.send(countOrders)
 

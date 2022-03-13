@@ -9,7 +9,9 @@ export class UserService {
   constructor(public router:Router) { }
   err: string = "";
   localstorage = "";
-  userAddress= []
+  userinfo= [];
+  allinfoArr =[];
+  isLogged
 
   async login(body: { form }) {
     const res = await fetch('http://localhost:1000/users/login', {
@@ -19,15 +21,18 @@ export class UserService {
       credentials: "include"
     })
     const data = await res.json()
-
+    console.log(data.msg);
+    
     if (data.err) {
       this.err = data.err
     } else {
       this.err = ""
+      this.isLogged = true
       localStorage['email'] = data.user[0].email
       localStorage['userID'] = data.user[0].userID
       localStorage['role'] = data.user[0].role
       this.localstorage = localStorage.getItem('email') || '{}'
+      
     }
   }
 
@@ -49,7 +54,7 @@ export class UserService {
   }
 
   async register(body:{form}){
-    const res = await fetch('http://localhost:1000/register',{
+    const res = await fetch('http://localhost:1000/users/register',{
       method:'POST',
       headers: { 'content-type':'application/json' },
       body: JSON.stringify(body)
@@ -64,13 +69,23 @@ export class UserService {
     }
   }
 
-  async getUserAddress(id:number){
-    const res = await fetch(`http://localhost:1000/users/address/${id}`,{
+  async getUserData(id:number){
+    const res = await fetch(`http://localhost:1000/users/${id}`,{
       credentials:"include"
     })
     const data = await res.json()
     console.log(data)
-    this.userAddress= data;
+    this.userinfo= data;
+    
+  }
+ 
+  async getAllUsersInfo(){
+    const res = await fetch(`http://localhost:1000/users/userallinfo`,{
+      credentials:"include"
+    })
+    const data = await res.json()
+    console.log(data)
+    this.allinfoArr= data;
     
   }
 

@@ -12,6 +12,7 @@ export class ProductsService {
   countProduct =[]
   categoriesArr = []
   cartArr = []
+  CartLastDate =[]
 
   async getAllProducts(){
     const res = await fetch(`http://localhost:1000/products`,{
@@ -135,6 +136,7 @@ export class ProductsService {
     })
     const data = await res.json()
     console.log(data)
+    this.CartLastDate = data
     
     
   }

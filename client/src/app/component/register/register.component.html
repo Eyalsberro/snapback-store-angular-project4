@@ -1,1 +1,74 @@
-<p>register works!</p>
+<h1>Register</h1>
+<div class="container">
+    <div class="row justify-content-evenly">
+        <div class="form">
+            <form [formGroup]="form">
+                <!-- STEP 1 REGISTER -->
+                <div class="register-col" *ngIf="!step">
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>ID</mat-label>
+                        <input formControlName="userID" type="number" matInput>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" type="email" name="email" email matInput>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password Confirm</mat-label>
+                        <input formControlName="passwordConfirm" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <br>
+                    <p class="err"><b> {{error}} </b></p>
+                    <button (click)="next()" mat-raised-button color="primary">Continue</button>
+                </div>
+
+                <!-- STEP 2 REGISTER -->
+                <div class="register-col" *ngIf="step">
+                    <mat-form-field appearance="fill">
+                        <mat-label>First name</mat-label>
+                        <input formControlName="firstName" matInput type="text" placeholder="First Name" />
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Last name</mat-label>
+                        <input formControlName="lastName" matInput type="text" placeholder="Last Name" />
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field appearance="fill">
+                        <mat-label>City</mat-label>
+                        <mat-select formControlName="city">
+                            <mat-option *ngFor="let city of cities" [value]="city">
+                                {{city}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <br />
+                    <mat-form-field appearance="fill">
+                        <mat-label>Street</mat-label>
+                        <input formControlName="street" matInput type="text" placeholder="Street" />
+                    </mat-form-field>
+                    <br />
+                    <p class="err"> {{_user.err}}</p>
+                    <br>
+                    <button (click)="_user.register(form.value)" mat-raised-button color="primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

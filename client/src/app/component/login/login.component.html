@@ -1,13 +1,18 @@
 <div class="container">
         <div class="row align-items-start">
             <div class="col">
+                <div class="btnstartshop">
+                    <button *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0" mat-raised-button color="primary">Star Shopping</button>
+                    <button *ngIf="_products.CartLastDate.length >= 1" mat-raised-button color="primary">Resume Shopping</button>
+
+                </div>
                 <div class="form">
-                    <form [formGroup]="form">
+                    <form [formGroup]="form"  >
                         <br>
                         <h1>Login</h1>
                         <mat-form-field appearance="fill">
                             <mat-label>Email</mat-label>
-                            <input formControlName="email" matInput>
+                            <input formControlName="email"  type="email" matInput>
                         </mat-form-field>
                         <br>
                         <mat-form-field appearance="fill">
@@ -36,7 +41,6 @@
             </div>
 
             <div class="col">
-                One of three columns
                 <app-panel-c></app-panel-c>
             </div>
         </div>
