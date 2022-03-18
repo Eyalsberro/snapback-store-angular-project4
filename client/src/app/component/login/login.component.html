@@ -2,9 +2,8 @@
         <div class="row align-items-start">
             <div class="col">
                 <div class="btnstartshop">
-                    <button *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0" mat-raised-button color="primary">Star Shopping</button>
-                    <button *ngIf="_products.CartLastDate.length >= 1" mat-raised-button color="primary">Resume Shopping</button>
-
+                    <button (click)="addACartTOuser()" *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0" mat-raised-button color="primary">Start Shopping</button>
+                    <button (click)="getUnclosedCartOfUser()" *ngIf="_products.CartLastDate.length >= 1" mat-raised-button color="primary">Resume Shopping</button>
                 </div>
                 <div class="form">
                     <form [formGroup]="form"  >

@@ -21,7 +21,7 @@ export class UserService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data.msg);
+    console.log(data);
     
     if (data.err) {
       this.err = data.err
@@ -32,6 +32,7 @@ export class UserService {
       localStorage['userID'] = data.user[0].userID
       localStorage['role'] = data.user[0].role
       this.localstorage = localStorage.getItem('email') || '{}'
+      window.location.reload()
       
     }
   }
@@ -48,6 +49,7 @@ export class UserService {
     localStorage.removeItem('email')
     localStorage.removeItem('userID')
     localStorage.removeItem('role')
+    localStorage.removeItem('cartID')
     this.localstorage= ""
     
     

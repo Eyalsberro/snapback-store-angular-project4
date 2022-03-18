@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     public _user: UserService,
-    public _fb: FormBuilder
+    public _fb: FormBuilder,
+    public router:Router
   ) { }
 
   step: boolean = false;
@@ -37,15 +39,17 @@ export class RegisterComponent implements OnInit {
     this._user.getAllUsersInfo()
   }
 
+  back(){
+    this.router.navigate(['/login'])
+  }
+
 
   public next(): void {
     if (this.form.value.userID && this.form.value.email && this.form.value.password && this.form.value.passwordConfirm) {
       if (this.form.value.userID > 9) {
         this.useridverifield = this._user.allinfoArr.filter(id => id.userID == this.form.value.userID)
-        // console.log(this.useridverifield);
         if (this.useridverifield.length == 0) {
           this.emailverifield = this._user.allinfoArr.filter(e => e.email == this.form.value.email)
-          // console.log(this.emailverifield);
           if (this.emailverifield.length == 0) {
             if (this.form.value.password == this.form.value.passwordConfirm) {
               this.step = true;
@@ -59,11 +63,12 @@ export class RegisterComponent implements OnInit {
           this.error = "ID already registered";
         }
       } else {
-        console.log("ID length must be 9");
+        // console.log("ID length must be 9");
         this.error = "ID length must be 9";
       }
     } else {
-      console.log("All filed are required");
+      this.error = "All fields are required"
+      // console.log("All fields are required");
     }
 
   }

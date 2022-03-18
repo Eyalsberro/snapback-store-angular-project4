@@ -1,0 +1,76 @@
+<form [formGroup]="form">
+    <mat-form-field appearance="fill">
+        <mat-label>Search</mat-label>
+        <input formControlName="search" type="search" matInput [(ngModel)]="value">
+        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''"> <mat-icon>close</mat-icon> </button>
+    </mat-form-field>
+    <button (click)="_products.searchProducts(form.value)" mat-raised-button color="primary">Search</button>
+</form>
+
+<app-categories></app-categories>
+
+<div class="container">
+
+    <div *ngIf="!_products.isSearching">
+
+        <div class="row" *ngIf="_products.allproducts">
+            <ng-container *ngFor="let pro of _products.productsArr">
+                <div class="card col-md-3">
+                    <h2 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100ch;">
+                        {{pro.productName}}</h2>
+                    <img src="{{pro.img}}" alt="">
+                    <p><strong>Price: </strong>{{pro.price | currency}}</p>
+                    <div class="counter">
+                        <mat-icon (click)="this.countMinus()"> remove_circle_outline </mat-icon>
+                        <span>{{this.counter}}</span>
+                        <mat-icon (click)="this.countPlus()"> add_circle_outline </mat-icon>
+                    </div>
+                    <p *ngIf="_products.err" class="err">{{_products.err}}</p>
+                    <button (click)="this._products.addToCart(this.counter,pro.productID,localStorage)"
+                        mat-raised-button>Add to cart</button>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="row" *ngIf="!_products.allproducts">
+            <ng-container *ngFor="let pro of _products.categoriesArr">
+                <div class="card col-md-3">
+                    <h2 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100ch;">
+                        {{pro.productName}}</h2>
+                    <img src="{{pro.img}}" alt="">
+                    <p><strong>Price: </strong>{{pro.price | currency}}</p>
+                    <div class="counter">
+                        <mat-icon (click)="this.countMinus()"> remove_circle_outline </mat-icon>
+                        <span>{{counter}}</span>
+                        <mat-icon (click)="this.countPlus()"> add_circle_outline </mat-icon>
+                    </div>
+                    <button (click)="this._products.addToCart(this.counter,pro.productID,localStorage)"
+                        mat-raised-button>Add to
+                        cart</button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+
+
+
+    <div class="row" *ngIf="_products.isSearching">
+        <ng-container *ngFor="let pro of _products.searchArr">
+            <div class="card col-md-3">
+                <h2 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100ch;">
+                    {{pro.productName}}</h2>
+                <img src="{{pro.img}}" alt="">
+                <p><strong>Price: </strong>{{pro.price | currency}}</p>
+                <div class="counter">
+                    <mat-icon (click)="this.countMinus()"> remove_circle_outline </mat-icon>
+                    <span>{{counter}}</span>
+                    <mat-icon (click)="this.countPlus()"> add_circle_outline </mat-icon>
+                </div>
+                <button (click)="this._products.addToCart(this.counter,pro.productID,localStorage)"
+                    mat-raised-button>Add to
+                    cart</button>
+            </div>
+        </ng-container>
+    </div>
+</div>

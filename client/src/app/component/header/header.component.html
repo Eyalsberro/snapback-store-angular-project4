@@ -3,7 +3,7 @@
         <img src="https://snapback-hat.com/wp-content/uploads/2020/05/cropped-Snapback-Hat-Logo-white-2-229x35.png"
             alt="">
         <!-- <p *ngFor="let user of _user.userinfo">Hello {{user.firstName}} </p> -->
-        <button class="home" mat-mini-fab aria-label="Example icon button with a home icon">
+        <button (click)="_user.logout()" class="home" mat-mini-fab aria-label="Example icon button with a home icon">
             <mat-icon class="btn">logout</mat-icon>
         </button>
     </mat-toolbar-row>

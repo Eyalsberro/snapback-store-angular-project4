@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 // GET CATEGORIES BY ID
 router.get('/:id', async (req, res) => {
     try {
-        const categoriesid = await SQL(`SELECT * FROM storeproject.categories WHERE categoryID = ${req.params.id}`)
+        const categoriesid = await SQL(`SELECT * FROM storeproject.product WHERE category_id = ${req.params.id}`)
         res.send(categoriesid)
 
     } catch (err) {

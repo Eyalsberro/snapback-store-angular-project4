@@ -1,0 +1,34 @@
+mat-sidenav-container{
+    /* height: 80vh; */
+    /* box-shadow: black 0 0 3px 5px; */
+    margin: 10px;
+    /* opacity: 0.95; */
+}
+
+mat-sidenav-content, mat-sidenav {
+    padding: 16px;
+}
+
+mat-sidenav {
+    width: 35vw;
+    background-color: black;
+    color: white; 
+}
+
+mat-icon {
+    font-size: medium;
+    font-weight: bold;
+}
+
+app-products{
+    padding: 7px;
+}
+
+app-cart{
+    color: white;
+    
+}
+
+.cart{
+    text-align: center;
+}

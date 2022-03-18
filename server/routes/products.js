@@ -30,7 +30,7 @@ router.get('/count', async (req, res) => {
 })
 
 // SEARCH A PRODUCT
-router.post('/search',loggedUser, async (req, res) => {
+router.post('/search', async (req, res) => {
     try {
         const { search } = req.body
 

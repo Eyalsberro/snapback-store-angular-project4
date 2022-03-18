@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"> Product </th>
+            <th scope="col"> Qt </th>
+            <th scope="col"> Price </th>
+            <th scope="col"> Total </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let productcart of _products.cartArr">
+            <td><img alt={{productcart.productName}} class="product-img" src="{{productcart.img}}" /></td>
+            <td>{{productcart.productName}} </td>
+            <td>{{productcart.qt}} </td>
+            <td>{{productcart.price| currency}} </td>
+            <td>{{(productcart.Total).toFixed(2)| currency}} </td>
+            <td>
+                <mat-icon (click)="_products.deleteProFromCart(productcart.cartID ,productcart.productID)">delete</mat-icon>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h3 class="sum">Total Price: {{this.getSum() | currency}}</h3>
+<button mat-raised-button>Order</button>
+<mat-icon (click)="_products.deleteAllProFromCart(localStorage)" >delete_forever</mat-icon>
+

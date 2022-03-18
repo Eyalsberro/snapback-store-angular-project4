@@ -11,6 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './component/login/login.component';
+import { ShopComponent } from './component/shop/shop.component';
+import { ProductsComponent } from './component/products/products.component';
+import { CartComponent } from './component/cart/cart.component';
+import { CategoriesComponent } from './component/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { LoginComponent } from './component/login/login.component';
     AboutComponent,
     PanelCComponent,
     RegisterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ShopComponent,
+    ProductsComponent,
+    CartComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,

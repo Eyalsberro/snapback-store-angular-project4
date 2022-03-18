@@ -7,21 +7,11 @@ router.post('/addcart', async (req, res) => {
     try {
         const { user_id } = req.body
 
-
-        const cartAlreadyExcited = await SQL(`SELECT * 
-        FROM cart
-        WHERE userID = '${user_id}'`)
-
-        if (cartAlreadyExcited.length != 0) {
-            return res.status(400).send({ err: "**You have a cart" })
-        }
-
-
         const addcart = await SQL(`INSERT INTO cart(user_id)
         VALUES(${user_id})`)
-
-
-        res.send(addcart)
+        console.log(addcart.insertId);
+        req.session.cartID = addcart.insertId
+        res.send({msg: "yufi" ,addcart})
 
     } catch (err) {
         console.log(err);
@@ -36,9 +26,12 @@ router.post("/addtocart", async (req, res) => {
     try {
         const { product_id, qt, cart_id } = req.body;
 
-        await SQL(`INSERT INTO cartItems(qt,product_id ,cart_id)
-        VALUES(${qt},${product_id},${cart_id})`)
+        if (qt == 0) {
+            return res.status(400).send({ err: "Cannot add 0 product" })
+        }
 
+        const addProducttocart = await SQL(`INSERT INTO cartItems(qt,product_id ,cart_id)
+        VALUES(${qt},${product_id},${cart_id})`)
 
         res.send({msg:'Prodcut Was Add To Cart'})
 

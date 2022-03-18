@@ -1,0 +1,11 @@
+.categories{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+p{
+    cursor: pointer;
+    text-decoration:underline;
+    font-size:medium;
+    font-weight: bold;
+}
