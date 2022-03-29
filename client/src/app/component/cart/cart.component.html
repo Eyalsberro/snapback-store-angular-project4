@@ -22,7 +22,7 @@
         </tr>
     </tbody>
 </table>
-<h3 class="sum">Total Price: {{this.getSum() | currency}}</h3>
-<button mat-raised-button>Order</button>
+<h3 class="sum">Total Price: {{this._products.getSum() | currency}}</h3>
+<button (click)="this.router.navigate(['/order'])" mat-raised-button>Order</button>
 <mat-icon (click)="_products.deleteAllProFromCart(localStorage)" >delete_forever</mat-icon>
 

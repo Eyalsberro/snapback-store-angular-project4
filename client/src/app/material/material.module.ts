@@ -8,6 +8,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 
@@ -22,9 +26,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSelectModule,
     MatSidenavModule,
     MatCardModule,
-    MatTabsModule
-    
-    
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule {}

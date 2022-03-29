@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Thank you for your order</h2>
+<mat-dialog-content class="mat-typography">
+<button (click)="_order.downloadReceipt()">Download Receipt</button>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button [routerLink]="['/login']" (click)="_order.deleteCartAfterOrder(localStorage)" routerLinkActive="router-link-active"  mat-button mat-dialog-close>Home</button>
+</mat-dialog-actions>

@@ -1,0 +1,9 @@
+
+Oren's Receipt:
+
+
+Product: Packman   qt: 1   Price: 14.99 $   Sum: 14.99 $   
+
+Product: Brooklyn   qt: 1   Price: 16.99 $   Sum: 16.99 $   
+
+Total: 31.98 $   

@@ -18,6 +18,16 @@ export class ProductsService {
   isSearching: boolean
   err: string = "";
 
+  getSum(): number {
+    let sum = 0;
+    for (let i = 0; i < this.cartArr.length; i++) {
+      sum += this.cartArr[i].Total
+    }
+    let roundedString = sum.toFixed(2);
+    let rounded = Number(roundedString);
+    return rounded;
+  };
+
   async getAllProducts() {
     const res = await fetch(`http://localhost:1000/products`, {
       credentials: "include"
@@ -84,9 +94,10 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     // localStorage['cartID'] = data[0].cartID;
     this.cartArr = data;
+    
 
   }
 
@@ -113,12 +124,41 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
+    console.log(data);
+    this.getCartOfCustomer(localStorage['userID'])
     if (res.status == 400) {
       this.err = data.err
     }
-    console.log(data);
-    this.getCartOfCustomer(localStorage['userID'])
+    
   }
+
+
+  async plus(body: { product_id: number, cart_id: number }) {
+    const res = await fetch('http://localhost:1000/cart/plus', {
+      method: 'Put',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (data.msg) {
+      this.getCartOfCustomer(localStorage['userID'])
+    }
+  }
+
+  async minus(body: { product_id: number, cart_id: number }) {
+    const res = await fetch('http://localhost:1000/cart/minus', {
+      method: 'Put',
+      headers: { 'content-type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (data.msg) {
+      this.getCartOfCustomer(localStorage['userID'])
+    }
+  }
+
 
   async deleteProFromCart(cardid: number, productid: number) {
     const res = await fetch(`http://localhost:1000/cart/delete/${cardid}/${productid}`, {

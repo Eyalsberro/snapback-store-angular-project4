@@ -7,8 +7,8 @@
     margin: 20px;
 }
 .card > img{
-    /* width: 200px;
-    height: 200px; */
+    /* width: auto;
+    height: auto; */
     margin-bottom: 15px;
     transition: 0.3s ease-in-out;
 }
@@ -34,4 +34,12 @@
 
 .err{
     color: red;
+}
+
+.search{
+    text-align: center;
+}
+
+.searctbtn{
+    margin-left: 15px;
 }

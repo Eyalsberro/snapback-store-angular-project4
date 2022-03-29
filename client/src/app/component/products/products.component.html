@@ -1,10 +1,13 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="search">
     <mat-form-field appearance="fill">
         <mat-label>Search</mat-label>
-        <input formControlName="search" type="search" matInput [(ngModel)]="value">
-        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''"> <mat-icon>close</mat-icon> </button>
+        <input formControlName="search" type="search" matInput>
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="form.reset()">
+            <mat-icon>close</mat-icon>
+        </button>
     </mat-form-field>
-    <button (click)="_products.searchProducts(form.value)" mat-raised-button color="primary">Search</button>
+    <button (click)="_products.searchProducts(form.value)" mat-raised-button color="primary"
+        class="searctbtn">Search</button>
 </form>
 
 <app-categories></app-categories>
@@ -20,13 +23,14 @@
                         {{pro.productName}}</h2>
                     <img src="{{pro.img}}" alt="">
                     <p><strong>Price: </strong>{{pro.price | currency}}</p>
-                    <div class="counter">
-                        <mat-icon (click)="this.countMinus()"> remove_circle_outline </mat-icon>
-                        <span>{{this.counter}}</span>
-                        <mat-icon (click)="this.countPlus()"> add_circle_outline </mat-icon>
+                    <div *ngIf="getProductQt(pro.productID) > 0" class="counter">
+                        <mat-icon (click)="removeProitemFromCart(0,pro.productID, localStorage)"> remove_circle_outline
+                        </mat-icon>
+                        <span>{{getProductQt(pro.productID)}}</span>
+                        <mat-icon (click)="addToCart(1,pro.productID,localStorage)"> add_circle_outline </mat-icon>
                     </div>
                     <p *ngIf="_products.err" class="err">{{_products.err}}</p>
-                    <button (click)="this._products.addToCart(this.counter,pro.productID,localStorage)"
+                    <button *ngIf="getProductQt(pro.productID) <= 0" (click)="addToCart(1,pro.productID,localStorage)"
                         mat-raised-button>Add to cart</button>
                 </div>
             </ng-container>
@@ -39,14 +43,15 @@
                         {{pro.productName}}</h2>
                     <img src="{{pro.img}}" alt="">
                     <p><strong>Price: </strong>{{pro.price | currency}}</p>
-                    <div class="counter">
-                        <mat-icon (click)="this.countMinus()"> remove_circle_outline </mat-icon>
-                        <span>{{counter}}</span>
-                        <mat-icon (click)="this.countPlus()"> add_circle_outline </mat-icon>
+                    <div *ngIf="getProductQt(pro.productID) > 0" class="counter">
+                        <mat-icon (click)="removeProitemFromCart(0,pro.productID, localStorage)"> remove_circle_outline
+                        </mat-icon>
+                        <span>{{getProductQt(pro.productID)}}</span>
+                        <mat-icon (click)="addToCart(1,pro.productID,localStorage)"> add_circle_outline </mat-icon>
                     </div>
-                    <button (click)="this._products.addToCart(this.counter,pro.productID,localStorage)"
-                        mat-raised-button>Add to
-                        cart</button>
+                    <p *ngIf="_products.err" class="err">{{_products.err}}</p>
+                    <button *ngIf="getProductQt(pro.productID) <= 0" (click)="addToCart(1,pro.productID,localStorage)"
+                        mat-raised-button>Add to cart</button>
                 </div>
             </ng-container>
         </div>
@@ -62,14 +67,13 @@
                     {{pro.productName}}</h2>
                 <img src="{{pro.img}}" alt="">
                 <p><strong>Price: </strong>{{pro.price | currency}}</p>
-                <div class="counter">
-                    <mat-icon (click)="this.countMinus()"> remove_circle_outline </mat-icon>
-                    <span>{{counter}}</span>
-                    <mat-icon (click)="this.countPlus()"> add_circle_outline </mat-icon>
+                <div *ngIf="getProductQt(pro.productID) > 0" class="counter">
+                    <mat-icon (click)="removeProitemFromCart(0,pro.productID, localStorage)"> remove_circle_outline </mat-icon>
+                    <span>{{getProductQt(pro.productID)}}</span>
+                    <mat-icon (click)="addToCart(1,pro.productID,localStorage)"> add_circle_outline </mat-icon>
                 </div>
-                <button (click)="this._products.addToCart(this.counter,pro.productID,localStorage)"
-                    mat-raised-button>Add to
-                    cart</button>
+                <p *ngIf="_products.err" class="err">{{_products.err}}</p>
+                <button *ngIf="getProductQt(pro.productID) <= 0" (click)="addToCart(1,pro.productID,localStorage)" mat-raised-button>Add to cart</button>
             </div>
         </ng-container>
     </div>

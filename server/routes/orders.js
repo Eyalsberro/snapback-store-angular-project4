@@ -1,5 +1,7 @@
 const { SQL } = require('../dbconfig');
 const { loggedUser } = require('../helper/loggedUser');
+const fs = require('fs');
+
 
 const router = require('express').Router()
 
@@ -37,9 +39,9 @@ router.get('/count', async (req, res) => {
 
 
 /// POST NEW ORDER
-router.post('/',loggedUser, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const {  user_id, cart_id, sendCity, sendStreet, sendDate, pay4digit } = req.body
+        const { user_id, cart_id, sendCity, sendStreet, sendDate, pay4digit } = req.body
 
         if (!sendCity || !sendStreet || !sendDate || !pay4digit) {
             return res.status(400).send({ err: " Everything Is Requird" })
@@ -58,6 +60,22 @@ router.post('/',loggedUser, async (req, res) => {
 
 })
 
+// CREATE THE RECEIPT
+router.post("/receipt", async (req, res) => {
+    const { content } = req.body;
+    await fs.writeFile(`${__dirname}/Receipt.txt`, content, function (err) {
+        if (err) throw err;
+        console.log('File is created successfully.');
+        res.status(201).send('File is created successfully.');
+    });
+
+});
+
+// DOWNLOAD THE RECEIPT FILE
+router.get('/downloadReceip', function (req, res) {
+  const file = `${__dirname}/Receipt.txt`;
+  res.download(file, "Receipt.txt");
+});
 
 // Delete CART AFTER FINISHING AN ORDER BY USER ID  
 router.delete("/deletecart/:user_id", async (req, res) => {
@@ -67,7 +85,7 @@ router.delete("/deletecart/:user_id", async (req, res) => {
         WHERE user_id =${req.params.user_id}`)
 
 
-        res.send({msg:'Cart Was Deleted'})
+        res.send({ msg: 'Cart Was Deleted' })
 
     } catch (err) {
         console.log(err);

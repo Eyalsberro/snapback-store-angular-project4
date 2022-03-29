@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button mat-raised-button routerLink="/shop">Back To Shop</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"> Product </th>
+                        <th scope="col"> Qt </th>
+                        <th scope="col"> Price </th>
+                        <th scope="col"> Total </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let productcart of _products.cartArr">
+                        <td><img alt={{productcart.productName}} class="product-img" src="{{productcart.img}}" /></td>
+                        <td>{{productcart.productName}} </td>
+                        <td>{{productcart.qt}} </td>
+                        <td>{{productcart.price| currency}} </td>
+                        <td>{{(productcart.Total).toFixed(2)| currency}} </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="sum">Total Price: {{this._products.getSum() | currency}}</h3>
+        </div>
+        <div class="col">
+            <h2>Shipping Detalis</h2>
+            <app-order-form></app-order-form>
+        </div>
+    </div>

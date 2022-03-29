@@ -30,22 +30,27 @@ create table product(
  FOREIGN KEY ( category_id) REFERENCES categories(categoryID)
 );
 
-CREATE TABLE cart(
- cartID INT AUTO_INCREMENT,
- cartDate DATETIME DEFAULT NOW(),
- user_id INT,
- primary key(cartID),
- foreign key(user_id) references users(userID)
+CREATE TABLE cart (
+    cartID INT AUTO_INCREMENT,
+    cartDate DATETIME DEFAULT NOW(),
+    user_id INT,
+    PRIMARY KEY (cartID),
+    FOREIGN KEY (user_id)
+        REFERENCES users (userID)
+	ON DELETE CASCADE
 );
 
-CREATE TABLE cartItems(
- cartItemsID INT AUTO_INCREMENT,
- qt INT,
- product_id INT,
- cart_id INT,
- primary key(cartItemsID),
- foreign key(product_id) references product(productID),
- foreign key(cart_id) references cart(cartID)
+CREATE TABLE cartItems (
+    cartItemsID INT AUTO_INCREMENT,
+    qt INT,
+    product_id INT,
+    cart_id INT,
+    PRIMARY KEY (cartItemsID),
+    FOREIGN KEY (product_id)
+        REFERENCES product (productID),
+    FOREIGN KEY (cart_id)
+        REFERENCES cart (cartID)
+	ON DELETE CASCADE
 );
 
 CREATE TABLE orders(
@@ -56,10 +61,11 @@ sendCity varchar(255),
 sendStreet varchar(255),
 sendDate date,
 orderDate DATETIME DEFAULT NOW(),
-payEnd INT(4),
+pay4digit INT(4),
 primary key (orderID),
 foreign key (user_id) references users(userID),
 foreign key (cart_id) references cart(cartID)
+ON DELETE CASCADE
 ); 
 
 
@@ -90,5 +96,5 @@ VALUES (123456788),(123456787);
 INSERT INTO cartItems(qt,product_id ,cart_id)
 VALUES (1,3,1),(1,5,1),(1,7,2),(1,2,2);
 
-INSERT INTO orders(cart_id,user_id,sendCity,sendStreet,sendDate,payEnd)
+INSERT INTO orders(cart_id,user_id,sendCity,sendStreet,sendDate,pay4digit)
 VALUES (1,"123456788","Tel-Aviv","Ben-Gourion","2022-04-15",1234);

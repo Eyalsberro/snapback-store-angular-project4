@@ -15,6 +15,9 @@ import { ShopComponent } from './component/shop/shop.component';
 import { ProductsComponent } from './component/products/products.component';
 import { CartComponent } from './component/cart/cart.component';
 import { CategoriesComponent } from './component/categories/categories.component';
+import { OrderComponent } from './component/order/order.component';
+import { OrderFormComponent } from './component/order-form/order-form.component';
+import { OrderDialogComponent } from './component/order-dialog/order-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { CategoriesComponent } from './component/categories/categories.component
     ShopComponent,
     ProductsComponent,
     CartComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    OrderComponent,
+    OrderFormComponent,
+    OrderDialogComponent
   ],
   imports: [
     BrowserModule,

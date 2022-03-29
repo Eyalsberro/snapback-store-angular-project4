@@ -11,7 +11,7 @@ router.post('/addcart', async (req, res) => {
         VALUES(${user_id})`)
         console.log(addcart.insertId);
         req.session.cartID = addcart.insertId
-        res.send({msg: "yufi" ,addcart})
+        res.send({ msg: "yufi", addcart })
 
     } catch (err) {
         console.log(err);
@@ -22,26 +22,88 @@ router.post('/addcart', async (req, res) => {
 
 
 // ADD PRODUCT TO THE CART 
+// router.post("/addtocart", async (req, res) => {
+//     try {
+//         const { product_id, qt, cart_id } = req.body;
+
+//         if (qt == 0) {
+//             return res.status(400).send({ err: "Cannot add 0 product" })
+//         }
+
+//         const addProducttocart = await SQL(`INSERT INTO cartItems(qt,product_id ,cart_id)
+//         VALUES(${qt},${product_id},${cart_id})`)
+
+//         res.send({msg:'Prodcut Was Add To Cart'})
+
+//     } catch (err) {
+//         console.log(err);
+//         return res.sendStatus(500)
+//     }
+
+// });
+
+// ADD PRODUCT TO THE CART 
 router.post("/addtocart", async (req, res) => {
-    try {
-        const { product_id, qt, cart_id } = req.body;
-
-        if (qt == 0) {
-            return res.status(400).send({ err: "Cannot add 0 product" })
+    const { product_id, qt, cart_id } = req.body;
+    if (qt < 1) {
+        try {
+            await SQL(`
+            DELETE FROM cartitems
+            WHERE cart_id =${cart_id}
+            AND product_id =${product_id}`);
+            res.send({ msg: "Prodcut Was Deleted" })
+        } catch (error) {
+            res.send({ err: error.sqlMessage, error });
         }
+    } else {
 
-        const addProducttocart = await SQL(`INSERT INTO cartItems(qt,product_id ,cart_id)
-        VALUES(${qt},${product_id},${cart_id})`)
+        try {
 
-        res.send({msg:'Prodcut Was Add To Cart'})
+            if (qt == 0) {
+                return res.status(400).send({ err: "Cannot add 0 product" })
+            }
 
-    } catch (err) {
-        console.log(err);
-        return res.sendStatus(500)
+            const addProducttocart = await SQL(`INSERT INTO cartItems(qt,product_id ,cart_id)
+            VALUES(${qt},${product_id},${cart_id})`)
+
+            res.send({ msg: 'Prodcut Was Add To Cart' })
+
+        } catch (err) {
+            console.log(err);
+            return res.sendStatus(500)
+        }
     }
 
 });
 
+
+// UPDATE QT PLUS
+router.put("/plus", async (req, res) => {
+    const { product_id, cart_id } = req.body;
+    try {
+        await SQL(`
+              UPDATE storeproject.cartitems
+              SET qt = qt + 1
+              WHERE product_id = ${product_id} AND cart_id = ${cart_id}`);
+        res.send({ msg: "update plus" });
+    } catch (error) {
+        res.send({ err: error.sqlMessage, error });
+    }
+});
+
+// UPDATE QT MINUS
+router.put("/minus", async (req, res) => {
+    const { product_id, cart_id } = req.body;
+    try {
+        await SQL(`
+              UPDATE storeproject.cartitems
+              SET qt = qt - 1
+              WHERE product_id = ${product_id} AND cart_id = ${cart_id}`);
+        res.send({ msg: "update minus" });
+    } catch (error) {
+        res.send({ err: error.sqlMessage, error });
+    }
+});
 
 
 // GET SPCIFIC CART OF CUSTOMER BY USER ID
@@ -71,7 +133,7 @@ router.get('/:user_id', async (req, res) => {
         return res.sendStatus(500)
     }
 })
- 
+
 
 // DELETE A PRODUCT FROM CART
 router.delete("/delete/:cardid/:productid", async (req, res) => {
@@ -82,7 +144,7 @@ router.delete("/delete/:cardid/:productid", async (req, res) => {
         AND product_id =${req.params.productid}`)
 
 
-        res.send({msg:'Prodcut Was Deleted'})
+        res.send({ msg: 'Prodcut Was Deleted' })
 
     } catch (err) {
         console.log(err);
@@ -99,7 +161,7 @@ router.delete("/deleteall/:cardid", async (req, res) => {
         WHERE cart_id =${req.params.cardid}`)
 
 
-        res.send({msg:'Cart Was Deleted'})
+        res.send({ msg: 'Cart Was Deleted' })
 
     } catch (err) {
         console.log(err);

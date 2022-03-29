@@ -1,0 +1,33 @@
+<div class="form">
+    <form [formGroup]="form">
+        <div class="register-col">
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>City</mat-label>
+                <input (dblclick)="fillCity()" formControlName="sendCity" type="text" matInput
+                    placeholder="double click for autofilling">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Street</mat-label>
+                <input (dblclick)="fillStreet()" formControlName="sendStreet" type="text" matInput
+                    placeholder="double click for autofilling">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Shipping Date</mat-label>
+                <input formControlName="sendDate" matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <p>Payments:</p>
+            <mat-form-field appearance="fill">
+                <mat-label>Credit Card</mat-label>
+                <input formControlName="pay4digit" matInput id="cc-number" type="tel" autocomplete="cc-number" ccNumber>
+            </mat-form-field>
+            <br>
+            <p class="err"><b> {{error}} </b></p>
+            <button (click)="makeOrder()" mat-raised-button color="primary">Order</button>
+        </div>
+    </form>
+</div>
