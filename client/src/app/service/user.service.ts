@@ -50,6 +50,7 @@ export class UserService {
     localStorage.removeItem('userID')
     localStorage.removeItem('role')
     localStorage.removeItem('cartID')
+    localStorage.removeItem('proid')
     this.localstorage= ""
     
     

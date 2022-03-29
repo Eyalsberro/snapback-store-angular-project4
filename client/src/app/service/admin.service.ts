@@ -29,8 +29,8 @@ export class AdminService {
 
   }
 
-  async updateProduct(body: { form }) {
-    const res = await fetch('http://localhost:1000/admin', {
+  async updateProduct(body: { form }, productID: number) {
+    const res = await fetch(`http://localhost:1000/admin/${productID}`, {
       method: "put",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(body),

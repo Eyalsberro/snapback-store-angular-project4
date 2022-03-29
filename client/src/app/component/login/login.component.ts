@@ -1,3 +1,4 @@
+import { _isNumberValue } from '@angular/cdk/coercion';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -23,6 +24,8 @@ export class LoginComponent implements OnInit {
     public router: Router
   ) { }
 
+  localStorageadmin = localStorage['role']
+
   hide = true;
   form: FormGroup = this._fb.group({
     email: ["", [Validators.required, Validators.email]],
@@ -38,7 +41,10 @@ export class LoginComponent implements OnInit {
     this._products.getCartOfCustomer(localStorage['userID'])
     localStorage['cartID'] = this._products.cartArr[0].cartID
     this.router.navigate(['/shop'])
+  }
 
+  getToAdmin() {
+    this.router.navigate(['/shop'])
   }
 
 

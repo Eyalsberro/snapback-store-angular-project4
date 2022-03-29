@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:"register", component: RegisterComponent},
   {path:"shop", component: ShopComponent, canActivate:[OnlyloggeduserGuard]},
   {path:"order", component: OrderComponent, canActivate:[OnlyloggeduserGuard]},
-  {path:'', redirectTo:'shop',pathMatch:'full'}
+  {path:'', redirectTo:'login',pathMatch:'full'}
 
 ];
 

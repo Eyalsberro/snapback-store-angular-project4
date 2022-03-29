@@ -1,53 +1,55 @@
 <div class="container">
-        <div class="row align-items-start">
-            <div class="col">
-                <div class="btnstartshop">
-                    <button (click)="addACartTOuser()" *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0" mat-raised-button color="primary">Start Shopping</button>
-                    <button (click)="getUnclosedCartOfUser()" *ngIf="_products.CartLastDate.length >= 1" mat-raised-button color="primary">Resume Shopping</button>
-                </div>
-                <div class="form">
-                    <form [formGroup]="form"  >
-                        <br>
-                        <h1>Login</h1>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Email</mat-label>
-                            <input formControlName="email"  type="email" matInput>
-                        </mat-form-field>
-                        <br>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Enter your password</mat-label>
-                            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                                [attr.aria-pressed]="hide">
-                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            </button>
-                        </mat-form-field>
-                        <p *ngIf="_user.err" class="err">{{_user.err}}</p>
-                        <br>
-                        <button (click)="_user.login(form.value)" mat-raised-button color="primary">Login</button>
-                        <br><br>
-                        <span>Don't have an account yet? <a routerLink="/register">Register Now</a></span>
-                        <br><br>
+    <div class="row align-items-start">
+        <div class="col">
 
-                    </form>
-                </div>
-
+            <div *ngIf="localStorageadmin !== 'admin'" class="btnstartshop">
+                <button (click)="addACartTOuser()"
+                    *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0"
+                    mat-raised-button>Start Shopping</button>
+                <button (click)="getUnclosedCartOfUser()" *ngIf="_products.CartLastDate.length >= 1"
+                    mat-raised-button>Resume Shopping</button>
+            </div>
+            <div *ngIf="localStorageadmin == 'admin'" class="btnstartshop">
+                <button (click)="getToAdmin()" mat-raised-button>Welcome Admin</button>
             </div>
 
+            <div class="form">
+                <form [formGroup]="form">
+                    <br>
+                    <h1>Login</h1>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" type="email" matInput>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Enter your password</mat-label>
+                        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <p *ngIf="_user.err" class="err">{{_user.err}}</p>
+                    <br>
+                    <button (click)="_user.login(form.value)" mat-raised-button>Login</button>
+                    <br><br>
+                    <span>Don't have an account yet? <a routerLink="/register">Register Now</a></span>
+                    <br><br>
 
-            <div class="col">
-                <app-about></app-about>
+                </form>
             </div>
 
-            <div class="col">
-                <app-panel-c></app-panel-c>
-            </div>
         </div>
 
+
+        <div class="col">
+            <app-about></app-about>
+        </div>
+
+        <div class="col">
+            <app-panel-c></app-panel-c>
+        </div>
+    </div>
+
 </div>
-
-
-
-
-
-

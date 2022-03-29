@@ -11,6 +11,8 @@ export class ShopComponent implements OnInit {
 
   opened: boolean = true;
   
+  localStorageadmin = localStorage['role']
+
   ngOnInit(): void {
   }
 

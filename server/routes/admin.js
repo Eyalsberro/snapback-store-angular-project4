@@ -5,7 +5,7 @@ const router = require('express').Router()
 
 
 /// POST NEW PRODUCT
-router.post('/',loggedAdmin, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { productName, category_id, price, img } = req.body
 
@@ -27,9 +27,9 @@ router.post('/',loggedAdmin, async (req, res) => {
 })
 
 // UPDATE PRODUCT
-router.put('/',loggedAdmin, async (req, res) => {
+router.put('/:productID', async (req, res) => {
     try {
-        const { productName, category_id, price, img, productID } = req.body
+        const { productName, category_id, price, img } = req.body
 
         if (!productName || !category_id || !price || !img) {
             return res.status(400).send({ err: "Everything Is Requird" })
@@ -37,7 +37,7 @@ router.put('/',loggedAdmin, async (req, res) => {
 
         await SQL(`UPDATE product
         SET productName="${productName}", category_id=${category_id}, price=${price}, img="${img}"
-        WHERE productID = ${productID}`)
+        WHERE productID = ${req.params.productID}`)
         
 
         res.send({ msg: "Product was update" })

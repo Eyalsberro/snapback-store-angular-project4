@@ -1,0 +1,11 @@
+<div class="row">
+    <ng-container *ngFor="let pro of _products.productsArr">
+        <div class="card col-md-3">
+            <h2 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100ch;">
+                {{pro.productName}}</h2>
+            <img src="{{pro.img}}" alt="">
+            <p><strong>Price: </strong>{{pro.price | currency}}</p>
+            <mat-icon (click)="openDialog(this.pro.productID)">settings_suggest</mat-icon>
+        </div>
+    </ng-container>
+</div>

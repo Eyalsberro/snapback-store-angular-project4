@@ -13,3 +13,8 @@
 .btnstartshop{
    text-align: center;
 }
+
+.mat-raised-button{
+   background-color: black;
+   color: white; 
+}

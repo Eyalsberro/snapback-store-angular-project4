@@ -1,0 +1,24 @@
+.row{
+    justify-content: center
+}
+
+.card{
+    padding: 20px;
+    margin: 20px;
+}
+.card > img{
+    /* width: auto;
+    height: auto; */
+    margin-bottom: 15px;
+    transition: 0.3s ease-in-out;
+}
+
+.card:hover{
+    transition: 0.3s ease-in-out;
+    transform: scale(1.1);
+
+}
+
+mat-icon{
+    cursor: pointer;
+}

@@ -18,6 +18,9 @@ import { CategoriesComponent } from './component/categories/categories.component
 import { OrderComponent } from './component/order/order.component';
 import { OrderFormComponent } from './component/order-form/order-form.component';
 import { OrderDialogComponent } from './component/order-dialog/order-dialog.component';
+import { AdminComponent } from './component/admin/admin.component';
+import { AdminAddProductComponent } from './component/admin-add-product/admin-add-product.component';
+import { AdminEditDialogComponent } from './component/admin-edit-dialog/admin-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { OrderDialogComponent } from './component/order-dialog/order-dialog.comp
     CategoriesComponent,
     OrderComponent,
     OrderFormComponent,
-    OrderDialogComponent
+    OrderDialogComponent,
+    AdminComponent,
+    AdminAddProductComponent,
+    AdminEditDialogComponent
   ],
   imports: [
     BrowserModule,

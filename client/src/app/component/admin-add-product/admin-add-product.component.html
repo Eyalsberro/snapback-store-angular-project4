@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+    <mat-form-field appearance="fill">
+        <mat-label>Product name</mat-label>
+        <input formControlName="productName" matInput type="text" placeholder="First Name" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category_id">
+            <mat-option *ngFor="let cat of categeory" [value]="cat.id">
+                {{cat.cat}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input formControlName="price" matInput type="number" placeholder="Last Name" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+        <mat-label>Image</mat-label>
+        <input formControlName="img" matInput type="text" placeholder="Last Name" />
+    </mat-form-field>
+    <br />
+    <br />
+    <button (click)="_admin.addProduct(form.value)" mat-raised-button>Add Product</button>
+</form>

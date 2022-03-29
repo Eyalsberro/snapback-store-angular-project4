@@ -22,7 +22,7 @@
                     <h2 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100ch;">
                         {{pro.productName}}</h2>
                     <img src="{{pro.img}}" alt="">
-                    <p><strong>Price: </strong>{{pro.price | currency}}</p>
+                    <p><b>Price: </b>{{pro.price | currency}}</p>
                     <div *ngIf="getProductQt(pro.productID) > 0" class="counter">
                         <mat-icon (click)="removeProitemFromCart(0,pro.productID, localStorage)"> remove_circle_outline
                         </mat-icon>
