@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   localStorageadmin = localStorage['role']
+  localStorageLogged = localStorage['userID']
 
   hide = true;
   form: FormGroup = this._fb.group({

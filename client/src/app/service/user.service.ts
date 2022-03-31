@@ -11,7 +11,7 @@ export class UserService {
   localstorage = "";
   userinfo= [];
   allinfoArr =[];
-  isLogged
+  public isLogged = false
 
   async login(body: { form }) {
     const res = await fetch('http://localhost:1000/users/login', {
@@ -44,7 +44,7 @@ export class UserService {
       credentials:"include"
     })
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     this.router.navigate(['/login']);
     localStorage.removeItem('email')
     localStorage.removeItem('userID')
@@ -52,6 +52,7 @@ export class UserService {
     localStorage.removeItem('cartID')
     localStorage.removeItem('proid')
     this.localstorage= ""
+    window.location.reload()
     
     
   }

@@ -2,6 +2,17 @@
     <div class="row">
         <div class="col">
             <button mat-raised-button routerLink="/shop">Back To Shop</button>
+            <form [formGroup]="form" class="search">
+                <mat-form-field appearance="fill">
+                    <mat-label>Search</mat-label>
+                    <input formControlName="search" type="search" matInput>
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <button (click)="_order.searchCart(localStorage,form.value)" mat-raised-button color="primary"
+                    class="searctbtn">Search</button>
+            </form>
             <table class="table">
                 <thead>
                     <tr>
@@ -12,7 +23,8 @@
                         <th scope="col"> Total </th>
                     </tr>
                 </thead>
-                <tbody>
+                
+                <tbody *ngIf="!_order.isSearching" >
 
                     <tr *ngFor="let productcart of _products.cartArr">
                         <td><img alt={{productcart.productName}} class="product-img" src="{{productcart.img}}" /></td>
@@ -22,6 +34,22 @@
                         <td>{{(productcart.Total).toFixed(2)| currency}} </td>
 
                     </tr>
+
+                </tbody>
+
+                <tbody *ngIf="_order.isSearching">
+
+                    <tr *ngFor="let productcart of _order.searchArr">
+                        <td><img alt={{productcart.productName}} class="product-img" src="{{productcart.img}}" /></td>
+                        <td  [innerHTML]="productcart.productName | searchPipe: form.value.search"> </td>
+                        <!-- <td>{{productcart.productName}} </td> -->
+                        <!-- <p [innerHTML]="cart_pro.productName | searchPipe: search"></p> -->
+                        <td>{{productcart.qt}} </td>
+                        <td>{{productcart.price| currency}} </td>
+                        <td>{{(productcart.Total).toFixed(2)| currency}} </td>
+
+                    </tr>
+
                 </tbody>
             </table>
             <h3 class="sum">Total Price: {{this._products.getSum() | currency}}</h3>

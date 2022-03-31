@@ -4,9 +4,9 @@
 
             <div *ngIf="localStorageadmin !== 'admin'" class="btnstartshop">
                 <button (click)="addACartTOuser()"
-                    *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0"
+                    *ngIf="_order.lastOrderOfUser || !_products.CartLastDate && localStorageLogged"
                     mat-raised-button>Start Shopping</button>
-                <button (click)="getUnclosedCartOfUser()" *ngIf="_products.CartLastDate.length >= 1"
+                <button (click)="getUnclosedCartOfUser()" *ngIf="_products.CartLastDate"
                     mat-raised-button>Resume Shopping</button>
             </div>
             <div *ngIf="localStorageadmin == 'admin'" class="btnstartshop">

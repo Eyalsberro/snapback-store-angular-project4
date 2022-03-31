@@ -11,7 +11,7 @@ router.post('/addcart', async (req, res) => {
         VALUES(${user_id})`)
         console.log(addcart.insertId);
         req.session.cartID = addcart.insertId
-        res.send({ msg: "yufi", addcart })
+        res.send(addcart)
 
     } catch (err) {
         console.log(err);
@@ -20,27 +20,6 @@ router.post('/addcart', async (req, res) => {
 
 })
 
-
-// ADD PRODUCT TO THE CART 
-// router.post("/addtocart", async (req, res) => {
-//     try {
-//         const { product_id, qt, cart_id } = req.body;
-
-//         if (qt == 0) {
-//             return res.status(400).send({ err: "Cannot add 0 product" })
-//         }
-
-//         const addProducttocart = await SQL(`INSERT INTO cartItems(qt,product_id ,cart_id)
-//         VALUES(${qt},${product_id},${cart_id})`)
-
-//         res.send({msg:'Prodcut Was Add To Cart'})
-
-//     } catch (err) {
-//         console.log(err);
-//         return res.sendStatus(500)
-//     }
-
-// });
 
 // ADD PRODUCT TO THE CART 
 router.post("/addtocart", async (req, res) => {
@@ -113,6 +92,7 @@ router.get('/:user_id', async (req, res) => {
                 cart.cartID,
                 product.productID,
                 cart.user_id,
+                cart.openCart,
                 product.productName,
                 product.price,
                 product.img,
@@ -125,7 +105,7 @@ router.get('/:user_id', async (req, res) => {
                     INNER JOIN
                 cart ON cartitems.cart_id = cart.cartID
             WHERE
-                cart.user_id = ${req.params.user_id}`)
+                cart.user_id = ${req.params.user_id} AND cart.openCart = 1`)
         res.send(cartuser)
 
     } catch (err) {
@@ -174,8 +154,10 @@ router.delete("/deleteall/:cardid", async (req, res) => {
 router.get('/cartdate/:user_id', async (req, res) => {
 
     try {
-        const cartdate = await SQL(`SELECT cartDate FROM cart WHERE user_id = ${req.params.user_id}`)
-        res.send(cartdate)
+
+        const cartdate = await SQL(`SELECT cartDate FROM cart WHERE user_id = ${req.params.user_id} AND openCart=1 ORDER BY cartDate DESC`)
+        // console.log(cartdate[0].cartDate)
+        res.send(cartdate[0].cartDate)
 
     } catch (err) {
         console.log(err);
@@ -185,7 +167,36 @@ router.get('/cartdate/:user_id', async (req, res) => {
 });
 
 
+router.post('/:user_id/search', async (req, res) => {
+    try {
+        const { search } = req.body
 
+        const searchterm = await SQL(`SELECT 
+                cart.cartID,
+                product.productID,
+                cart.user_id,
+                product.productName,
+                product.price,
+                product.img,
+                cartitems.qt,
+                product.price * cartitems.qt AS Total
+            FROM
+                cartitems
+                    INNER JOIN
+                product ON cartitems.product_id = product.productID
+                    INNER JOIN
+                cart ON cartitems.cart_id = cart.cartID
+            WHERE
+                cart.user_id = ${req.params.user_id} AND productName LIKE '%${search}%'`)
+
+        res.send(searchterm)
+
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(500)
+    }
+
+})
 
 
 module.exports = router

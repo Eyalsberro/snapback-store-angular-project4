@@ -21,6 +21,7 @@ import { OrderDialogComponent } from './component/order-dialog/order-dialog.comp
 import { AdminComponent } from './component/admin/admin.component';
 import { AdminAddProductComponent } from './component/admin-add-product/admin-add-product.component';
 import { AdminEditDialogComponent } from './component/admin-edit-dialog/admin-edit-dialog.component';
+import { SearchPipePipe } from './pipes/search-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AdminEditDialogComponent } from './component/admin-edit-dialog/admin-ed
     OrderDialogComponent,
     AdminComponent,
     AdminAddProductComponent,
-    AdminEditDialogComponent
+    AdminEditDialogComponent,
+    SearchPipePipe
   ],
   imports: [
     BrowserModule,

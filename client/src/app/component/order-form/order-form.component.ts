@@ -29,6 +29,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   error = "";
+  minDate = new Date().toISOString().split('T')[0]
 
   form: FormGroup = this._fb.group({
     cart_id: localStorage.getItem('cartID'),
@@ -41,13 +42,13 @@ export class OrderFormComponent implements OnInit {
   })
 
   fillCity() {
-    console.log(this._user.userinfo[0].city);
+    // console.log(this._user.userinfo[0].city);
     this.form.value.sendCity = this._user.userinfo[0].city
     this.form.controls["sendCity"].setValue(this._user.userinfo[0].city)
   }
 
   fillStreet() {
-    console.log(this._user.userinfo[0].street);
+    // console.log(this._user.userinfo[0].street);
     this.form.value.sendCity = this._user.userinfo[0].street
     this.form.controls["sendStreet"].setValue(this._user.userinfo[0].street)
   }
@@ -67,8 +68,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   makeOrder() {
-    console.log(this.form.value);
-    console.log(this.form.controls["pay4digit"].valid);
+   
 
     if (this.form.value.sendCity && this.form.value.sendStreet && this.form.value.sendDate && this.form.value.pay4digit) {
       if (this.form.controls["pay4digit"].valid) {

@@ -12,7 +12,7 @@ export class ProductsService {
   countProduct = []
   categoriesArr = []
   cartArr = []
-  CartLastDate = []
+  CartLastDate
   searchArr = []
   allproducts: boolean
   isSearching: boolean
@@ -110,7 +110,8 @@ export class ProductsService {
     })
     const data = await res.json()
     console.log(data);
-    localStorage['cartID'] = data.addcart.insertId
+    localStorage['cartID'] = data.insertId
+    window.location.reload()
     if (res.status == 400) {
       alert(data.err)
     }

@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
+import { ProductsService } from './products.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  constructor() { }
+  constructor(
+    public _products:ProductsService
+  ) { }
 
 
-  lastOrderOfUser = []
+  lastOrderOfUser
   countAllOrder = []
   orderArr = []
+  searchArr = []
+  isSearching: boolean
 
   async getLastOrder(id: number) {
     const res = await fetch(`http://localhost:1000/orders/last/${id}`, {
@@ -53,7 +58,7 @@ export class OrderService {
 
 
   async createReceipt(body: { content: string }) {
-    console.log(body);
+    // console.log(body);
     const res = await fetch('http://localhost:1000/orders/receipt', {
       method: 'post',
       headers: { 'content-type': 'application/json' },
@@ -78,14 +83,34 @@ export class OrderService {
 
 
 
-  async deleteCartAfterOrder(id: number) {
-    const res = await fetch(`http://localhost:1000/orders/deletecart/${id}`, {
-      method: 'DELETE',
+  async CloseCartAfterOrder(cartid: number) {
+    const res = await fetch(`http://localhost:1000/orders/closecart/${cartid}`, {
+      method: 'PUT',
       credentials: "include"
     })
     const data = await res.json()
+    localStorage.removeItem('cartID')
     console.log(data.msg)
 
+  }
+
+  async searchCart(id: number, body: { form }) {
+    const res = await fetch(`http://localhost:1000/cart/${id}/search`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+    const data = await res.json()
+    if (res.status == 400) {
+      alert(data.err)
+    } else {
+      console.log(data);
+      this._products.getCartOfCustomer(localStorage['userID'])
+      this.isSearching = true
+      this.searchArr = data
+      console.log(this.isSearching);
+      
+    }
   }
 
 }

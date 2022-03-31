@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/service/admin.service';
+import { ProductsService } from 'src/app/service/products.service';
 
 @Component({
   selector: 'app-admin-edit-dialog',
@@ -11,7 +12,8 @@ export class AdminEditDialogComponent implements OnInit {
 
   constructor(
     public _fb: FormBuilder,
-    public _admin: AdminService
+    public _admin: AdminService,
+    public _products: ProductsService
   ) { }
 
   ngOnInit(): void {

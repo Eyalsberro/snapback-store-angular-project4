@@ -13,6 +13,7 @@ export class OrderDialogComponent implements OnInit {
   constructor(public _order: OrderService, public _user: UserService, public _products: ProductsService) { }
 
   localStorage = localStorage['userID'];
+  localStorageCartID = localStorage['cartID'];
 
   contentOfReceipt =
     '\r\n' + this._user.userinfo[0].firstName + "'s " + 'Receipt:' + '\r\n';

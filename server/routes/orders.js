@@ -12,9 +12,9 @@ router.get('/last/:user_id', async (req, res) => {
     try {
         const lastOrderDate = await SQL(`SELECT orderDate FROM orders
         WHERE user_id= ${req.params.user_id}
-        order by orderDate desc`)
+        order by orderDate DESC`)
 
-        res.send(lastOrderDate)
+        res.send(lastOrderDate[0].orderDate)
 
     } catch (err) {
         console.log(err);
@@ -50,6 +50,7 @@ router.post('/', async (req, res) => {
         await SQL(`INSERT INTO orders(cart_id,user_id,sendCity,sendStreet,sendDate,pay4digit)
         VALUES (${cart_id},${user_id},"${sendCity}","${sendStreet}", "${sendDate}",${pay4digit})`)
 
+        // await SQL(``)
 
         res.send({ msg: "You've made an order" })
 
@@ -73,19 +74,18 @@ router.post("/receipt", async (req, res) => {
 
 // DOWNLOAD THE RECEIPT FILE
 router.get('/downloadReceip', function (req, res) {
-  const file = `${__dirname}/Receipt.txt`;
-  res.download(file, "Receipt.txt");
+    const file = `${__dirname}/Receipt.txt`;
+    res.download(file, "Receipt.txt");
 });
 
-// Delete CART AFTER FINISHING AN ORDER BY USER ID  
-router.delete("/deletecart/:user_id", async (req, res) => {
+// CLOSE CART AFTER FINISHING AN ORDER BY CART ID  
+router.put("/closecart/:cartID", async (req, res) => {
     try {
 
-        await SQL(`DELETE from storeproject.cart
-        WHERE user_id =${req.params.user_id}`)
+        await SQL(`UPDATE cart set openCart = 0 where cartID = ${req.params.cartID}`)
 
 
-        res.send({ msg: 'Cart Was Deleted' })
+        res.send({ msg: 'Cart Close' })
 
     } catch (err) {
         console.log(err);

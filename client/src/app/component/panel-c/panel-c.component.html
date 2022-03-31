@@ -9,20 +9,20 @@
 
 
 
-<div *ngIf="!_user.isLogged">
-    <h3 *ngFor="let last of _products.CartLastDate">
-        <span>
-            <b>You Have An Open Cart From: </b>{{last.cartDate | date}}
+<div *ngIf="localstorge">
+    <h3 >
+        <span *ngIf="!_products.CartLastDate == false">
+            <b>You Have An Open Cart From: </b>{{_products.CartLastDate | date}}
         </span>
     </h3>
 
-    <h3 *ngFor="let lastorder of _order.lastOrderOfUser">
-        <span>
-            <b>Your last order was: </b>{{lastorder.orderDate | date}}
+    <h3>
+        <span *ngIf="!_order.lastOrderOfUser == false">
+            <b>Your last order was: </b>{{_order.lastOrderOfUser | date}}
         </span>
     </h3>
-
-    <h3 *ngIf="_products.CartLastDate.length == 0 && _order.lastOrderOfUser.length == 0">
+    
+    <h3>
         <span *ngFor="let user of _user.userinfo">
             <b> Welcome: </b> {{user.firstName}}
         </span>
