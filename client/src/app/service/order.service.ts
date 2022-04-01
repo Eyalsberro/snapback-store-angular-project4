@@ -22,7 +22,6 @@ export class OrderService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
     this.lastOrderOfUser = data
 
 
@@ -33,7 +32,6 @@ export class OrderService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
     this.countAllOrder = data;
 
   }
@@ -52,13 +50,11 @@ export class OrderService {
     } else {
       this.orderArr = data
     }
-    console.log(data);
 
   }
 
 
   async createReceipt(body: { content: string }) {
-    // console.log(body);
     const res = await fetch('http://localhost:1000/orders/receipt', {
       method: 'post',
       headers: { 'content-type': 'application/json' },
@@ -73,12 +69,10 @@ export class OrderService {
       headers: { 'content-type': 'application/json' },
       credentials: 'include',
     });
-    console.log(res);
     if (!res.ok) {
       return alert('מצטערים לא יכולנו להפיק קבלה עבורך כעת אנא צור קשר בהתאם');
     }
     window.open('http://localhost:1000/orders/downloadReceip', "_blank");
-    // this.closeShopppingCart();
   }
 
 
@@ -90,7 +84,6 @@ export class OrderService {
     })
     const data = await res.json()
     localStorage.removeItem('cartID')
-    console.log(data.msg)
 
   }
 
@@ -104,11 +97,9 @@ export class OrderService {
     if (res.status == 400) {
       alert(data.err)
     } else {
-      console.log(data);
       this._products.getCartOfCustomer(localStorage['userID'])
       this.isSearching = true
       this.searchArr = data
-      console.log(this.isSearching);
       
     }
   }

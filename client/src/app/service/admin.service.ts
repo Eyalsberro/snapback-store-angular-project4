@@ -11,6 +11,14 @@ export class AdminService {
   ) { }
 
 
+  async getAdmin() {
+    const res = await fetch(`http://localhost:1000/admin`, {
+      method:'GET',
+      credentials: "include"
+    })
+    const data = await res.json()
+  }
+
   async addProduct(body: { form }) {
     const res = await fetch('http://localhost:1000/admin', {
       method: "post",
@@ -25,7 +33,6 @@ export class AdminService {
     } else {
       this._products.getAllProducts()
     }
-    console.log(data);
 
   }
 
@@ -43,7 +50,6 @@ export class AdminService {
     } else {
       this._products.getAllProducts()
     }
-    console.log(data);
 
   }
 

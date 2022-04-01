@@ -1,7 +1,23 @@
 const { SQL } = require('../dbconfig')
 const { loggedAdmin } = require('../helper/loggedAdmin')
-
+const bcrypt = require('bcrypt');
 const router = require('express').Router()
+
+// GET ADMIN
+router.get('/', async (req, res) => {
+    try {
+        const admin = await SQL(`SELECT * FROM users WHERE role = "admin"`)
+
+        if (!admin.length) {
+            const hashed = await bcrypt.hash('123', 10)
+            await SQL(`INSERT INTO users(userID, firstName, lastName, email, password, role) VALUES(123456789, "Eyal", "Sberro", "eyalsberro@gmail.com", "${hashed}", "admin")`)
+        }
+        res.send("Admin")
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500)
+    }
+})
 
 
 /// POST NEW PRODUCT
@@ -38,7 +54,7 @@ router.put('/:productID', async (req, res) => {
         await SQL(`UPDATE product
         SET productName="${productName}", category_id=${category_id}, price=${price}, img="${img}"
         WHERE productID = ${req.params.productID}`)
-        
+
 
         res.send({ msg: "Product was update" })
 

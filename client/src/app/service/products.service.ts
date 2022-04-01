@@ -33,7 +33,7 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     this.productsArr = data;
     this.allproducts = true
     this.isSearching = false
@@ -44,7 +44,7 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     this.countProduct = data;
 
   }
@@ -59,7 +59,7 @@ export class ProductsService {
     if (res.status == 400) {
       alert(data.err)
     } else {
-      console.log(data);
+      // console.log(data);
       this.searchArr = data
       this.isSearching = true
     }
@@ -70,7 +70,7 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     this.categoriesArr = data;
 
   }
@@ -80,7 +80,7 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
     this.categoriesArr = data;
     this.allproducts = false
     this.isSearching = false
@@ -109,7 +109,7 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data);
+    // console.log(data);
     localStorage['cartID'] = data.insertId
     window.location.reload()
     if (res.status == 400) {
@@ -167,7 +167,6 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data.msg)
     this.getCartOfCustomer(localStorage['userID'])
   }
 
@@ -177,7 +176,6 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data.msg)
     this.getCartOfCustomer(localStorage['userID'])
   }
 
@@ -186,7 +184,6 @@ export class ProductsService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data)
     this.CartLastDate = data
 
 

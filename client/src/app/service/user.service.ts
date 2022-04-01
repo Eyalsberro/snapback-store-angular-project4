@@ -21,7 +21,6 @@ export class UserService {
       credentials: "include"
     })
     const data = await res.json()
-    console.log(data);
     
     if (data.err) {
       this.err = data.err
@@ -44,7 +43,6 @@ export class UserService {
       credentials:"include"
     })
     const data = await res.json()
-    // console.log(data)
     this.router.navigate(['/login']);
     localStorage.removeItem('email')
     localStorage.removeItem('userID')
@@ -69,7 +67,6 @@ export class UserService {
     }else{
       this.err=""
       this.router.navigate(['/login']);
-      console.log(data)
     }
   }
 
@@ -78,7 +75,6 @@ export class UserService {
       credentials:"include"
     })
     const data = await res.json()
-    console.log(data)
     this.userinfo= data;
     
   }
@@ -88,7 +84,6 @@ export class UserService {
       credentials:"include"
     })
     const data = await res.json()
-    console.log(data)
     this.allinfoArr= data;
     
   }

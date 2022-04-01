@@ -1,12 +1,16 @@
 const { SQL } = require('../dbconfig')
 const router = require('express').Router()
 const { loggedUser } = require('../helper/loggedUser')
+const bcrypt = require('bcrypt');
+
+
 
 
 //LOGIN CUSTOMER/ADMIN
 router.post('/login', async (req, res) => {
 
     try {
+
         const { email, password } = req.body
 
         if (!email || !password) {
@@ -16,14 +20,17 @@ router.post('/login', async (req, res) => {
 
         const user = await SQL(`SELECT email,password,userID,role
         FROM users
-        WHERE email="${email}" AND password="${password}"`)
+        WHERE email="${email}"`)
         console.log(user[0].userID);
+        console.log(user[0].password);
 
-        if (user.length < 1) {
-            return res.status(400).send({ err: "**Wrong email or/and password" })
-
+        if (!await bcrypt.compare(password, user[0].password)) {
+            return res.status(400).send({ err: "Wrong Password" })
         }
-        res.send({ msg: "Succefull login " ,user })
+        if (!user.length) {
+            return res.status(400).send({ err: "**Wrong email or/and password" })
+        }
+        res.send({ msg: "Succefull login ", user })
 
         req.session.email = email
         req.session.userID = user[0].userID
@@ -41,7 +48,7 @@ router.post('/login', async (req, res) => {
 //REGISTER CUSTOMER
 router.post('/register', async (req, res) => {
     try {
-        const {userID, firstName, lastName, email, password, city, street } = req.body
+        const { userID, firstName, lastName, email, password, city, street } = req.body
 
         if (!userID) {
             return res.status(400).send({ err: "**Missing ID, all filed are required" })
@@ -82,8 +89,9 @@ router.post('/register', async (req, res) => {
             return res.status(400).send({ err: "**Email already existed" })
         }
 
+        const hashPassword = await bcrypt.hash(password, 10);
         const register = await SQL(`INSERT INTO users (userID,firstName,lastName,email,password,city,street,role)
-        VALUES (${userID},'${firstName}' ,'${lastName}','${email}','${password}', '${city}','${street}','customer')`)
+        VALUES (${userID},'${firstName}' ,'${lastName}','${email}','${hashPassword}', '${city}','${street}','customer')`)
 
 
         console.log(req.body);
@@ -105,7 +113,7 @@ router.delete('/logout', (req, res) => {
 })
 
 // GET USERS INFO
-router.get('/userallinfo',async (req,res)=>{
+router.get('/userallinfo', async (req, res) => {
     try {
         const kaka = await SQL(`SELECT * 
         FROM storeproject.users`)
