@@ -85,7 +85,7 @@ router.put("/minus", async (req, res) => {
 });
 
 
-// GET SPCIFIC CART OF CUSTOMER BY USER ID
+// GET SPECIFIC CART OF CUSTOMER BY USER ID
 router.get('/:user_id', async (req, res) => {
     try {
         const cartuser = await SQL(`SELECT 
@@ -166,7 +166,7 @@ router.get('/cartdate/:user_id', async (req, res) => {
 
 });
 
-
+// SEARCH A PRODUCT IN CART
 router.post('/:user_id/search', async (req, res) => {
     try {
         const { search } = req.body

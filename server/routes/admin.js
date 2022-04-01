@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 })
 
 
-/// POST NEW PRODUCT
+// POST NEW PRODUCT
 router.post('/', async (req, res) => {
     try {
         const { productName, category_id, price, img } = req.body
