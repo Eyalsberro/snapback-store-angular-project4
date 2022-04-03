@@ -21,8 +21,7 @@ router.post('/login', async (req, res) => {
         const user = await SQL(`SELECT email,password,userID,role
         FROM users
         WHERE email="${email}"`)
-        console.log(user[0].userID);
-        console.log(user[0].password);
+        
 
         if (!await bcrypt.compare(password, user[0].password)) {
             return res.status(400).send({ err: "Wrong Password" })

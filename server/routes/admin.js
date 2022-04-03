@@ -1,6 +1,6 @@
 const { SQL } = require('../dbconfig')
-const { loggedAdmin } = require('../helper/loggedAdmin')
 const bcrypt = require('bcrypt');
+const { loggedAdmin } = require('../helper/loggedAdmin');
 const router = require('express').Router()
 
 // GET ADMIN
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
 })
 
 // UPDATE PRODUCT
-router.put('/:productID', async (req, res) => {
+router.put('/:productID', loggedAdmin, async (req, res) => {
     try {
         const { productName, category_id, price, img } = req.body
 

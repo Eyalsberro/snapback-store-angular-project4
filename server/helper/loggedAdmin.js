@@ -1,7 +1,9 @@
 module.exports.loggedAdmin = (req, res, next) => {
-    if (req.session.role == "admin") {
+    if (req.session.role == 'admin') {
         next()
     }else {
-        res.status(401).send({err: "Its only for admin"})
+        res.status(401).send({err: "It's only for admin"})
     }
+
 }
+
