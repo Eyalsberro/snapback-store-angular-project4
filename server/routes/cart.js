@@ -1,4 +1,5 @@
 const { SQL } = require('../dbconfig')
+const { loggedUser } = require('../helper/loggedUser')
 
 const router = require('express').Router()
 
@@ -22,7 +23,7 @@ router.post('/addcart', async (req, res) => {
 
 
 // ADD PRODUCT TO THE CART 
-router.post("/addtocart", async (req, res) => {
+router.post("/addtocart", loggedUser, async (req, res) => {
     const { product_id, qt, cart_id } = req.body;
     if (qt < 1) {
         try {

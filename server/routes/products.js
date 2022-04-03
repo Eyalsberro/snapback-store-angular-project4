@@ -1,5 +1,4 @@
 const { SQL } = require('../dbconfig')
-const { loggedUser } = require('../helper/loggedUser')
 
 const router = require('express').Router()
 

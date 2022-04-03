@@ -39,7 +39,7 @@ router.get('/count', async (req, res) => {
 
 
 /// POST NEW ORDER
-router.post('/', async (req, res) => {
+router.post('/', loggedUser, async (req, res) => {
     try {
         const { user_id, cart_id, sendCity, sendStreet, sendDate, pay4digit } = req.body
 

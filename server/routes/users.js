@@ -34,6 +34,7 @@ router.post('/login', async (req, res) => {
         req.session.email = email
         req.session.userID = user[0].userID
         req.session.role = user[0].role
+        req.session.save();
         console.log(req.session.role);
 
     } catch (err) {

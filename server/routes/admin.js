@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 
 
 // POST NEW PRODUCT
-router.post('/', async (req, res) => {
+router.post('/', loggedAdmin, async (req, res) => {
     try {
         const { productName, category_id, price, img } = req.body
 
