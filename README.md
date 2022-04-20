@@ -4,7 +4,7 @@ We needed to built a store:
 - Customer: can see products, can add to cart, and make an order.
 - Admin: can edit products and add new products.
 
-You can find it also here: 
+You can find it also here: https://snapbackstore-client.herokuapp.com/
 
 ## The Project
 
