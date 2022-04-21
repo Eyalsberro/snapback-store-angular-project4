@@ -1,6 +1,6 @@
 # Project For John Bryce 
 
-We needed to built a store:
+We needed to build a store:
 - Customer: can see products, can add to cart, and make an order.
 - Admin: can edit products and add new products.
 
